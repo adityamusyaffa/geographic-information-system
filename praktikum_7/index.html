@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <style>
+      #map {
+        height: 97vh;
+      }
+    </style>
+
+    <title>SIG Praktikum 7</title>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      var map = L.map("map").setView([-6.402905, 106.778419], 13);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      let campuses = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus A STTNF",
+              alamat: "Cimanggis, Depok",
+            },
+            geometry: {
+              coordinates: [106.84437287128011, -6.362557822030611],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Kampus B STTNF",
+              alamat: "Srengseng Sawah, Jakarta Selatan",
+            },
+            geometry: {
+              coordinates: [106.8323421, -6.3529245],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Universitas Pancasila",
+              alamat: "Lenteng Agung, Jakarta Selatan",
+            },
+            geometry: {
+              coordinates: [106.83319594291937, -6.339713529425385],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Universitas Gunadarma",
+              alamat: "Kelapa Dua, Depok",
+            },
+            geometry: {
+              coordinates: [106.84393222492615, -6.354304305560119],
+              type: "Point",
+            },
+          },
+          {
+            type: "Feature",
+            properties: {
+              kampus: "Politeknik Negeri Media Kreatif",
+              alamat: "Srengseng Sawah, Jakarta Selatan",
+            },
+            geometry: {
+              coordinates: [106.82802148716527, -6.34706579073304],
+              type: "Point",
+            },
+          },
+        ],
+      };
+
+      L.geoJSON(campuses, {
+        style: function (feature) {
+          return { color: feature.properties.color };
+        },
+      })
+        .bindPopup(function (layer) {
+          return layer.feature.properties.description;
+        })
+        .addTo(map);
+    </script>
+  </body>
+</html>
